@@ -1,53 +1,75 @@
-# DevLinker Frontend
+# 🚀 DevLinker Frontend
 
 A full-stack developer networking platform where developers can discover other developers, send connection requests, and build professional tech networks.
 
-This repository contains the **frontend application** for DevLinker.
+🌐 **Live Demo:** https://devlinker.tech
 
 ---
 
-## Tech Stack
+## 📌 About
 
-* React
-* Redux Toolkit
-* React Router DOM
-* Tailwind CSS
-* DaisyUI
-* Axios
+DevLinker is a MERN stack application that allows developers to build their professional network by connecting with other developers. Users can create an account, browse developer profiles, send connection requests, manage requests, and maintain their professional connections.
+
+This repository contains the **React frontend** of the application.
 
 ---
 
-## Features
+## 🛠 Tech Stack
 
-### Authentication
-
-* User Signup
-* User Login
-* Secure cookie-based authentication
-
-### Developer Feed
-
-* View suggested developers
-* Send connection requests directly from the feed
-
-### Connection Requests
-
-* View incoming connection requests
-* Accept or reject requests
-
-### Connections
-
-* View all accepted connections
-* Clean list UI for connected developers
-
-### Profile
-
-* View profile information
-* Edit profile details
+- React
+- Redux Toolkit
+- React Router DOM
+- Axios
+- Tailwind CSS
+- DaisyUI
+- Vite
 
 ---
 
-## Installation
+## ✨ Features
+
+### 🔐 Authentication
+- User Signup
+- User Login
+- JWT Authentication
+- Secure Cookie-based Sessions
+
+### 👨‍💻 Developer Feed
+- Browse suggested developers
+- Send connection requests
+- Responsive card-based UI
+
+### 🤝 Connection Requests
+- View incoming requests
+- Accept or reject requests instantly
+
+### 🌐 My Connections
+- View all accepted connections
+- Clean and responsive UI
+
+### 👤 Profile Management
+- View profile
+- Edit personal information
+- Update profile details
+
+### 📱 Responsive Design
+- Fully responsive across desktop, tablet, and mobile devices
+
+---
+
+## 🚀 Live Deployment
+
+The application is deployed on **AWS EC2** with:
+
+- 🌍 Custom Domain (**devlinker.tech**)
+- 🔒 HTTPS (Let's Encrypt SSL)
+- ⚡ Nginx Reverse Proxy
+- 🚀 PM2 Process Manager
+- 📌 Elastic IP for static hosting
+
+---
+
+## 📦 Installation
 
 Clone the repository
 
@@ -55,7 +77,7 @@ Clone the repository
 git clone https://github.com/09asad/devlinker-frontend.git
 ```
 
-Navigate to the project directory
+Move into the project
 
 ```bash
 cd devlinker-frontend
@@ -67,40 +89,52 @@ Install dependencies
 npm install
 ```
 
-Run the development server
+Start the development server
 
 ```bash
 npm run dev
 ```
 
-## Project Structure
+---
 
-src
-├── components
-├── utils
-├── pages
-├── store
+## 📁 Project Structure
+
+```
+src/
+├── components/
+├── utils/
+├── pages/
+├── store/
 ├── App.jsx
 └── main.jsx
+```
 
 ---
 
-## Future Improvements
+## 🔮 Future Improvements
 
-* Real-time notifications using Socket.IO
-* Real-time chat between connections
-* Developer search functionality
-* Skill-based developer matching
+- 💬 Real-time chat using Socket.IO
+- 🔔 Real-time notifications
+- 🔍 Developer search
+- 🏷️ Skill-based developer matching
+- 📄 User portfolio integration
 
 ---
 
-## Related Repository
+## 🔗 Related Repository
 
-Backend Repository
+**Backend Repository**
+
 https://github.com/09asad/devlinker-backend
 
 ---
 
-## Author
+## 👨‍💻 Author
 
-Asad Khan
+**Asad Khan**
+
+GitHub: https://github.com/09asad
+
+---
+
+⭐ If you like this project, consider giving it a star!
