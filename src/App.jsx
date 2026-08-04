@@ -9,6 +9,7 @@ import Connections from "./Components/Connections";
 import Requests from "./Components/Requests";
 import SignUp from "./Components/SignUp";
 import PasswordChange from "./Components/PasswordChange";
+import Premium from "./Components/Premium";
 
 function App() {
 
@@ -24,7 +25,8 @@ function App() {
             <Route path="/requests" element={<Requests />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/password" element={<PasswordChange />} />
-          </Route>
+            <Route path="/premium" element={<Premium />} />
+          </Route> 
         </Routes>
       </BrowserRouter>
     </Provider>

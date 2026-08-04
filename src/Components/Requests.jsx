@@ -17,7 +17,7 @@ const Requests = () => {
       dispatch(removeRequest(_id));
 
     } catch (err) {
-      console.error(err);
+        console.error(err);
     }
   };
 
