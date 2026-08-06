@@ -1,8 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import { BASE_URL } from "../utils/constants";
 import axios from "axios";
 
 const Premium = () => {
+
+  const[isPremium, setIsPremium] = useState(false);
+
+  const verifyPremiumUser = async (response) => {
+  try {
+    const res = await axios.post(
+      BASE_URL + "/payment/verify",
+      response,
+      {
+        withCredentials: true,
+      }
+    );
+
+    if (res.data.isPremium) {
+      setIsPremium(true);
+      alert("Payment successful! You are now a premium member.");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("Payment verification failed.");
+  }
+};
   const handleBuyClick = async (membershipType) => {
     try {
       const response = await axios.post(
@@ -27,6 +49,7 @@ const Premium = () => {
         theme: {
           color: "#F37254",
         },
+        handler: verifyPremiumUser,
       };
 
       const rzp = new window.Razorpay(options);
@@ -36,7 +59,9 @@ const Premium = () => {
       alert("Unable to initiate payment. Please try again.");
     }
   };
-  return (
+  return isPremium? (
+    <h1>You're already a premium member!</h1>
+  ) : (
     <div className="m-6 p-5">
       <div className="flex w-full gap-5">
         <div className="card bg-base-300 rounded-box grid h-80 grow place-items-center">
