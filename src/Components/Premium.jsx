@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BASE_URL } from "../utils/constants";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 const Premium = () => {
   const [isPremium, setIsPremium] = useState(false);
@@ -76,7 +77,7 @@ const Premium = () => {
       <p className="mt-2 text-gray-400">Enjoy all your premium features.</p>
       <button
         className="btn btn-primary mt-8"
-        onClick={() => navigate("/feed")}
+        onClick={() => Navigate("/feed")}
       >
         Go to Feed
       </button>
