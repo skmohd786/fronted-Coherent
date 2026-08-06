@@ -28,7 +28,7 @@ const Premium = () => {
       const response = await axios.post(
         BASE_URL + "/payment/create",
         { membershipType },
-        { withCredentials: true }
+        { withCredentials: true },
       );
 
       const { keyId, order } = response.data;
@@ -50,7 +50,9 @@ const Premium = () => {
         handler: () => {
           setTimeout(async () => {
             await verifyPremiumUser();
-            alert("Payment successful! Please wait while we activate your membership.");
+            alert(
+              "Payment successful! Please wait while we activate your membership.",
+            );
           }, 3000);
         },
       };
@@ -64,7 +66,21 @@ const Premium = () => {
   };
 
   return isPremium ? (
-    <h1 className="text-3xl font-bold">You're already a premium member!</h1>
+    <div className="flex flex-col items-center justify-center min-h-[70vh]">
+      <h1 className="text-5xl font-bold text-yellow-500">
+        🎉 You're a Premium Member!
+      </h1>
+      <p className="mt-4 text-xl text-gray-300">
+        Thanks for supporting DevLinker.
+      </p>
+      <p className="mt-2 text-gray-400">Enjoy all your premium features.</p>
+      <button
+        className="btn btn-primary mt-8"
+        onClick={() => navigate("/feed")}
+      >
+        Go to Feed
+      </button>
+    </div>
   ) : (
     <div className="m-6 p-5">
       <div className="flex w-full gap-5">
