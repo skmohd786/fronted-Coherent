@@ -64,7 +64,7 @@ const Premium = () => {
   };
 
   return isPremium ? (
-    <h1>You're already a premium member!</h1>
+    <h1 className="text-3xl font-bold">You're already a premium member!</h1>
   ) : (
     <div className="m-6 p-5">
       <div className="flex w-full gap-5">
