@@ -78,7 +78,7 @@ const Premium = () => {
       <p className="mt-2 text-gray-400">Enjoy all your premium features.</p>
       <button
         className="btn btn-primary mt-8"
-        onClick={() => navigate("/feed")}
+        onClick={() => navigate("/")}
       >
         Go to Feed
       </button>
