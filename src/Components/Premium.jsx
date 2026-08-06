@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { BASE_URL } from "../utils/constants";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Premium = () => {
   const [isPremium, setIsPremium] = useState(false);
+  const navigate = useNavigate();
 
   const verifyPremiumUser = async () => {
     try {
