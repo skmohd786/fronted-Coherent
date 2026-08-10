@@ -10,6 +10,7 @@ import Requests from "./Components/Requests";
 import SignUp from "./Components/SignUp";
 import PasswordChange from "./Components/PasswordChange";
 import Premium from "./Components/Premium";
+import Chat from "./Components/Chat";
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/password" element={<PasswordChange />} />
             <Route path="/premium" element={<Premium />} />
+            <Route path="/chat/:toUserId" element={<Chat />} />
           </Route> 
         </Routes>
       </BrowserRouter>
