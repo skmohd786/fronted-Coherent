@@ -10,18 +10,55 @@ const Chat = () => {
   const [receiver, setReceiver] = useState("");
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [error, setError] = useState("");
   const socketRef = useRef(null);
 
   const user = useSelector((store) => store.user);
+  const connections = useSelector((store) => store.connections);
   const userId = user?._id;
   const firstName = user?.firstName;
+
+  const isConnection = connections?.find(
+    (connection) => connection._id === toUserId,
+  );
+
+  const fetchChatMessage = async () => {
+    if (!isConnection) {
+      setMessages([]);
+      setError("You are not connected with this user. Please connect first to start chatting.");
+      return;
+    }
+    setError(""); // Clear any previous error if the user is connected
+    
+    try {
+      const chat = await axios.get(BASE_URL + "/chat/" + toUserId, {
+        withCredentials: true,
+      });
+
+      const chatMessages = chat?.data?.messages.map((msg) => {
+        const { senderId, text } = msg;
+        return {
+          firstName: senderId?.firstName,
+          text,
+        };
+      });
+      setMessages(chatMessages);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to fetch chat messages. Please try again later.");
+    }
+  };
+
+  useEffect(() => {
+    fetchChatMessage();
+  }, [isConnection, toUserId]);
 
   useEffect(() => {
     getUser();
   }, [toUserId]);
 
   useEffect(() => {
-    if (!userId || !toUserId) return;
+    if (!userId || !toUserId || !isConnection) return;
 
     const socket = createSocketConnection();
 
@@ -45,7 +82,7 @@ const Chat = () => {
     return () => {
       socket.disconnect();
     };
-  }, [userId, toUserId]);
+  }, [userId, toUserId, isConnection]);
 
   const sendMessage = () => {
     if (!newMessage.trim()) return;
@@ -76,43 +113,50 @@ const Chat = () => {
       </div>
 
       <div className="flex-1 overflow-y-auto p-6">
-        {messages.map((message, index) => {
-          const isMyMessage = message.firstName === user?.firstName;
+        {error ? (
+          <div className="h-full flex items-center justify-center">
+            <p className="text-red-400 text-2xl font-semibold">{error}</p>
+          </div>
+        ) : (
+          messages.map((message, index) => {
+            const isMyMessage = message.firstName === user?.firstName;
 
-          return (
-            <div
-              key={index}
-              className={isMyMessage ? "chat chat-end" : "chat chat-start"}
-            >
-              <div className="chat-image avatar">
-                <div className="w-10 rounded-full">
-                  <img
-                    src={isMyMessage ? user?.photoURL : receiver?.photoURL}
-                  />
+            return (
+              <div
+                key={index}
+                className={isMyMessage ? "chat chat-end" : "chat chat-start"}
+              >
+                <div className="chat-image avatar">
+                  <div className="w-10 rounded-full">
+                    <img
+                      src={isMyMessage ? user?.photoURL : receiver?.photoURL}
+                    />
+                  </div>
                 </div>
+
+                <div className="chat-header">{message.firstName}</div>
+                <div className="chat-bubble">{message.text}</div>
               </div>
-
-              <div className="chat-header">{message.firstName}</div>
-
-              <div className="chat-bubble">{message.text}</div>
-            </div>
-          );
-        })}
+            );
+          })
+        )}
       </div>
 
-      <div className="h-20 border-t border-gray-500 flex items-center gap-3 px-4">
-        <input
-          type="text"
-          placeholder="Type a message..."
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-          className="input input-bordered flex-1 rounded-lg"
-        />
+      {!error && (
+        <div className="h-20 border-t border-gray-500 flex items-center gap-3 px-4">
+          <input
+            type="text"
+            placeholder="Type a message..."
+            value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+            className="input input-bordered flex-1 rounded-lg"
+          />
 
-        <button className="btn btn-primary rounded-lg" onClick={sendMessage}>
-          Send
-        </button>
-      </div>
+          <button className="btn btn-primary rounded-lg" onClick={sendMessage}>
+            Send
+          </button>
+        </div>
+      )}
     </div>
   );
 };
