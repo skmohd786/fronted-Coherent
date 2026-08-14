@@ -1,95 +1,173 @@
 # 🚀 DevLinker Frontend
 
-A full-stack developer networking platform where developers can discover other developers, send connection requests, and build professional tech networks.
+A full-stack developer networking platform where developers can discover other developers, build connections, chat in real time, and grow their professional tech network.
 
-🌐 **Live Demo:** https://devlinker.tech
+🌐 **Live Product:** https://devlinker.tech
 
 ---
 
 ## 📌 About
 
-DevLinker is a MERN stack application that allows developers to build their professional network by connecting with other developers. Users can create an account, browse developer profiles, send connection requests, manage requests, and maintain their professional connections.
+**DevLinker** is a MERN-based developer networking platform designed to help developers discover relevant people, connect with them, and communicate through one focused platform.
 
-This repository contains the **React frontend** of the application.
+Users can create developer profiles, discover other developers, send and manage connection requests, chat with their connections in real time, and access premium membership plans.
+
+This repository contains the **React + Vite frontend** of DevLinker.
+
+---
+
+## ✨ Key Features
+
+### 🔐 Authentication
+
+* User signup and login
+* JWT-based authentication
+* Protected routes
+* Secure cookie-based authentication flow
+
+### 👨‍💻 Developer Discovery
+
+* Browse developer profiles
+* View developer information
+* Discover developers for networking
+* Responsive developer cards
+
+### 🤝 Connections
+
+* Send connection requests
+* Accept or reject incoming requests
+* Manage connection requests
+* View accepted connections
+
+### 💬 Real-Time Chat
+
+* One-to-one real-time messaging
+* Chat with accepted connections
+* Real-time communication using Socket.IO
+* Real-time chat interface
+
+### 👤 Profile Management
+
+* View user profile
+* Edit profile information
+* Update personal and developer details
+
+### 💎 Premium Membership
+
+**Silver Membership**
+
+* Unlimited chats with connections
+* 100 connection requests per day
+* Silver verified badge
+* Ad-free experience
+* 2-month validity
+
+**Gold Membership**
+
+* Additional premium features
+* Unlimited connection requests per day
+* Gold verified badge
+* Ad-free experience
+* 6-month validity
+
+### 💳 Payments
+
+* Razorpay payment integration
+* Premium membership purchase flow
+* Payment-based membership activation
+
+### 📱 Responsive UI
+
+* Responsive across desktop, tablet, and mobile devices
+* Built with Tailwind CSS and DaisyUI
 
 ---
 
 ## 🛠 Tech Stack
 
-- React
-- Redux Toolkit
-- React Router DOM
-- Axios
-- Tailwind CSS
-- DaisyUI
-- Vite
+### Frontend
+
+* React
+* Vite
+* React Router DOM
+* Redux Toolkit
+* Axios
+* Socket.IO Client
+* Tailwind CSS
+* DaisyUI
+
+### Backend Integration
+
+* REST APIs
+* JWT authentication
+* Socket.IO real-time communication
 
 ---
 
-## ✨ Features
+## 🧠 Frontend Architecture
 
-### 🔐 Authentication
-- User Signup
-- User Login
-- JWT Authentication
-- Secure Cookie-based Sessions
+The frontend follows a component-based React architecture with Redux Toolkit for global application state.
 
-### 👨‍💻 Developer Feed
-- Browse suggested developers
-- Send connection requests
-- Responsive card-based UI
-
-### 🤝 Connection Requests
-- View incoming requests
-- Accept or reject requests instantly
-
-### 🌐 My Connections
-- View all accepted connections
-- Clean and responsive UI
-
-### 👤 Profile Management
-- View profile
-- Edit personal information
-- Update profile details
-
-### 📱 Responsive Design
-- Fully responsive across desktop, tablet, and mobile devices
+```text
+User
+ │
+ ▼
+React + Vite
+ │
+ ├── React Router
+ ├── Redux Toolkit
+ ├── Axios ───────────────► Express REST APIs
+ │
+ └── Socket.IO Client ────► Socket.IO Server
+                              │
+                              ▼
+                         Node.js Backend
+                              │
+                              ▼
+                         MongoDB Atlas
+```
 
 ---
 
 ## 🚀 Live Deployment
 
-The application is deployed on **AWS EC2** with:
+DevLinker is deployed as a live web application on **AWS EC2**.
 
-- 🌍 Custom Domain (**devlinker.tech**)
-- 🔒 HTTPS (Let's Encrypt SSL)
-- ⚡ Nginx Reverse Proxy
-- 🚀 PM2 Process Manager
-- 📌 Elastic IP for static hosting
+### Production Infrastructure
+
+* 🌍 Custom Domain: https://devlinker.tech
+* ☁️ AWS EC2
+* 🐧 Ubuntu
+* ⚡ Nginx Reverse Proxy
+* 🚀 PM2 Process Manager
+* 📌 Elastic IP
+* 🔒 HTTPS / SSL using Let's Encrypt
+
+The React frontend is built using Vite and served as a production build through Nginx.
 
 ---
 
 ## 📦 Installation
 
-Clone the repository
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/09asad/devlinker-frontend.git
 ```
 
-Move into the project
+### 2. Move into the project directory
 
 ```bash
 cd devlinker-frontend
 ```
 
-Install dependencies
+### 3. Install dependencies
 
 ```bash
 npm install
 ```
 
-Start the development server
+### 4. Start the development server
 
 ```bash
 npm run dev
@@ -99,33 +177,38 @@ npm run dev
 
 ## 📁 Project Structure
 
-```
+```text
 src/
 ├── components/
-├── utils/
 ├── pages/
 ├── store/
+├── utils/
 ├── App.jsx
 └── main.jsx
 ```
 
 ---
 
-## 🔮 Future Improvements
+## 🔗 Related Repository
 
-- 💬 Real-time chat using Socket.IO
-- 🔔 Real-time notifications
-- 🔍 Developer search
-- 🏷️ Skill-based developer matching
-- 📄 User portfolio integration
+### Backend
+
+https://github.com/09asad/devlinker-backend
+
+The backend repository contains the Node.js + Express server, MongoDB integration, authentication, Socket.IO server, premium membership logic, and Razorpay payment integration.
 
 ---
 
-## 🔗 Related Repository
+## 🔮 Future Improvements
 
-**Backend Repository**
-
-https://github.com/09asad/devlinker-backend
+* 🎯 Skill-based developer matching
+* 🤝 Project collaboration
+* 👥 Developer communities
+* 📞 Voice calling between connections
+* 💼 Job and internship opportunities
+* 📱 Dedicated mobile application
+* 🤖 AI-assisted developer matching
+* 🔔 Advanced real-time notifications
 
 ---
 
@@ -137,4 +220,4 @@ GitHub: https://github.com/09asad
 
 ---
 
-⭐ If you like this project, consider giving it a star!
+⭐ If you like DevLinker, consider giving the repository a star!
