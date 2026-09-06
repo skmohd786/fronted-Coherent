@@ -1,4 +1,4 @@
-# 🚀 DevLinker Frontend
+# 🚀 Coherent Frontend
 
 A full-stack developer networking platform where developers can discover other developers, build connections, chat in real time, and grow their professional tech network.
 
@@ -8,11 +8,11 @@ A full-stack developer networking platform where developers can discover other d
 
 ## 📌 About
 
-**DevLinker** is a MERN-based developer networking platform designed to help developers discover relevant people, connect with them, and communicate through one focused platform.
+**Coherent** is a MERN-based developer networking platform designed to help developers discover relevant people, connect with them, and communicate through one focused platform.
 
 Users can create developer profiles, discover other developers, send and manage connection requests, chat with their connections in real time, and access premium membership plans.
 
-This repository contains the **React + Vite frontend** of DevLinker.
+This repository contains the **React + Vite frontend** of Coherent.
 
 ---
 
@@ -131,7 +131,7 @@ React + Vite
 
 ## 🚀 Live Deployment
 
-DevLinker is deployed as a live web application on **AWS EC2**.
+Coherent is deployed as a live web application on **AWS EC2**.
 
 ### Production Infrastructure
 
@@ -220,4 +220,4 @@ GitHub: https://github.com/09asad
 
 ---
 
-⭐ If you like DevLinker, consider giving the repository a star!
+⭐ If you like Coherent, consider giving the repository a star!

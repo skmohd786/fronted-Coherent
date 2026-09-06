@@ -39,8 +39,8 @@ const Premium = () => {
         key: keyId,
         amount: order.amount,
         currency: order.currency,
-        name: "DevLinker",
-        description: "DevLinker Premium Membership",
+        name: "Coherent",
+        description: "Coherent Premium Membership",
         order_id: order.orderId,
         prefill: {
           name: order.notes.firstName + " " + order.notes.lastName,
@@ -73,7 +73,7 @@ const Premium = () => {
         🎉 You're a Premium Member!
       </h1>
       <p className="mt-4 text-xl text-gray-300">
-        Thanks for supporting DevLinker.
+        Thanks for supporting Coherent.
       </p>
       <p className="mt-2 text-gray-400">Enjoy all your premium features.</p>
       <button

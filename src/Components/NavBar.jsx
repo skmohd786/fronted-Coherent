@@ -26,8 +26,8 @@ const NavBar = () => {
         <div className="navbar bg-base-300 shadow-sm">
             <div className="flex-1">
                 <Link to={user ? "/" : "/login"} className="btn btn-ghost text-2xl font-bold  rounded-lg">
-                    <img src="/DevLinker-logo.png" alt="DevLinker logo" className="w-8 h-8" />
-                    DevLinker
+                    <img src="/Coherent-logo.png" alt="Coherent logo" className="w-8 h-8" />
+                    Coherent
                 </Link>
             </div>
 
