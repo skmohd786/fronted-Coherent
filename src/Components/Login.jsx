@@ -10,15 +10,22 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+    setError("");
+    if (!emailId.trim() || !password) {
+      setError("Email and password are required");
+      return;
+    }
+    setIsSubmitting(true);
     try {
       const res = await axios.post(
         BASE_URL + "/login",
         {
-          emailId,
+          emailId: emailId.trim().toLowerCase(),
           password,
         }, { withCredentials: true }
       );
@@ -26,7 +33,9 @@ const Login = () => {
       return navigate("/");          // FEED page
 
     } catch (err) {
-      setError(err.response?.data || "Something went wrong");
+      setError(typeof err.response?.data === "string" ? err.response.data : "Unable to log in");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -69,7 +78,9 @@ const Login = () => {
           </div>
           <p className='text-red-500'>{error}</p>
           <div className="card-actions justify-center">
-            <button className="btn btn-primary w-full" onClick={handleLogin}>Login</button>
+            <button className="btn btn-primary w-full" onClick={handleLogin} disabled={isSubmitting}>
+              {isSubmitting ? "Logging in..." : "Login"}
+            </button>
           </div>
           <div className='text-center flex mt-4'>
             <span className='text-sm'>Don't have an account?</span>

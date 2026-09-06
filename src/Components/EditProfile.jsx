@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { BASE_URL } from "../utils/constants";
+import { BASE_URL, DEFAULT_PROFILE_IMAGE } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 
@@ -8,18 +8,29 @@ const EditProfile = ({ user }) => {
 
     const [firstName, setFirstName] = useState(user.firstName);
     const [lastName, setLastName] = useState(user.lastName);
-    const [photoURL, setPhotoURL] = useState(user.photoURL);
-    const [age, setAge] = useState(user.age);
-    const [gender, setGender] = useState(user.gender);
-    const [about, setAbout] = useState(user.about);
+    const [photoURL, setPhotoURL] = useState(user.photoURL || "");
+    const [age, setAge] = useState(user.age ?? "");
+    const [gender, setGender] = useState(user.gender || "");
+    const [about, setAbout] = useState(user.about || "");
     const [error, setError] = useState("");
     const dispatch = useDispatch();
     const [showToast, setShowToast] = useState(false);
 
     const update = async () => {
+        setError("");
+        if (age && Number(age) < 18) {
+            setError("Age must be at least 18");
+            return;
+        }
+
+        const profileData = { firstName, lastName, about };
+        if (photoURL.trim()) profileData.photoURL = photoURL.trim();
+        if (age) profileData.age = Number(age);
+        if (gender) profileData.gender = gender;
+
         try {
             const res = await axios.patch(BASE_URL + "/profile/edit",
-                { firstName, lastName, age, gender, about, photoURL }, { withCredentials: true }
+                profileData, { withCredentials: true }
             );
             dispatch(addUser(res.data?.data));
             setShowToast(true);
@@ -99,12 +110,16 @@ const EditProfile = ({ user }) => {
             <div className="card bg-base-300 w-96 shadow-sm mx-10">
                 <figure>
                     <img
-                        src={photoURL}
-                        alt="photo" />
+                        src={photoURL || DEFAULT_PROFILE_IMAGE}
+                        alt="Profile preview"
+                        onError={(event) => {
+                            event.currentTarget.onerror = null;
+                            event.currentTarget.src = DEFAULT_PROFILE_IMAGE;
+                        }} />
                 </figure>
                 <div className="card-body">
                     <h2 className="card-title">{firstName + " " + lastName}</h2>
-                    <p>{age + " , " + gender}</p>
+                    <p>{age || "Age not set"} , {gender || "Gender not set"}</p>
                     <p>{about}</p>
                 </div>
             </div> 

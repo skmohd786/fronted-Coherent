@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { removeUserFromFeed } from "../utils/feedSlice";
 import axios from "axios";
-import { BASE_URL } from "../utils/constants";
+import { BASE_URL, DEFAULT_PROFILE_IMAGE } from "../utils/constants";
 
 const UserCard = ({ user }) => {
     const dispatch = useDispatch();
@@ -9,7 +9,7 @@ const UserCard = ({ user }) => {
 
     const sendRequest = async (status, _id) => {
         try {
-            const res = await axios.post(BASE_URL + "/request/send/" + status + "/" + _id,
+            await axios.post(BASE_URL + "/request/send/" + status + "/" + _id,
                 {},
                 { withCredentials: true }
             );
@@ -27,8 +27,12 @@ const UserCard = ({ user }) => {
         <div className="card bg-base-300 w-96 shadow-sm">
             <figure>
                 <img
-                    src={photoURL}
-                    alt="photo" />
+                    src={photoURL || DEFAULT_PROFILE_IMAGE}
+                    alt="Profile"
+                    onError={(event) => {
+                        event.currentTarget.onerror = null;
+                        event.currentTarget.src = DEFAULT_PROFILE_IMAGE;
+                    }} />
             </figure>
             <div className="card-body">
                 <h2 className="card-title">{firstName + " " + lastName}</h2>

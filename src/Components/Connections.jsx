@@ -1,6 +1,6 @@
 import axios from "axios";
-import { BASE_URL } from "../utils/constants";
-import { useEffect } from "react";
+import { BASE_URL, DEFAULT_PROFILE_IMAGE } from "../utils/constants";
+import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/connectionSlice";
 import { Link } from "react-router-dom";
@@ -9,7 +9,7 @@ const Connections = () => {
   const connections = useSelector((store) => store.connections);
   const dispatch = useDispatch();
 
-  const fetchConnections = async () => {
+  const fetchConnections = useCallback(async () => {
     try {
       const res = await axios.get(BASE_URL + "/user/connections", {
         withCredentials: true,
@@ -19,11 +19,11 @@ const Connections = () => {
     } catch (err) {
       console.error(err);
     }
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     fetchConnections();
-  }, []);
+  }, [fetchConnections]);
 
   if (!connections) return;
 
@@ -41,7 +41,14 @@ const Connections = () => {
             key={_id}
             className="flex items-center gap-6 bg-base-300 p-2 rounded-2xl my-3"
           >
-            <img src={photoURL} alt="photo" className="w-20 h-20 rounded-full object-cover" />
+            <img
+              src={photoURL || DEFAULT_PROFILE_IMAGE}
+              alt="Profile"
+              className="w-20 h-20 rounded-full object-cover"
+              onError={(event) => {
+                event.currentTarget.onerror = null;
+                event.currentTarget.src = DEFAULT_PROFILE_IMAGE;
+              }} />
             <div className="flex-1 ">
               <h2 className="font-bold text-lg">{firstName} {lastName}</h2>
               <p className="text-sm">{age}, {gender}</p>

@@ -1,8 +1,8 @@
 import axios from "axios";
-import { BASE_URL } from "../utils/constants";
+import { BASE_URL, DEFAULT_PROFILE_IMAGE } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addRequest, removeRequest } from "../utils/requestSlice";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 const Requests = () => {
   const dispatch = useDispatch();
@@ -10,7 +10,7 @@ const Requests = () => {
 
   const reviewRequest = async (status, _id) => {
     try {
-      const res = await axios.post(BASE_URL + "/request/review/" + status + "/" + _id,
+      await axios.post(BASE_URL + "/request/review/" + status + "/" + _id,
         {},
         { withCredentials: true }
       );
@@ -21,7 +21,7 @@ const Requests = () => {
     }
   };
 
-  const fetchRequests = async () => {
+  const fetchRequests = useCallback(async () => {
     try {
       const res = await axios.get(BASE_URL + "/user/request/received", {
         withCredentials: true,
@@ -31,11 +31,11 @@ const Requests = () => {
     } catch (err) {
       console.error(err);
     }
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     fetchRequests();
-  }, []);
+  }, [fetchRequests]);
 
   if (!requests) return;
 
@@ -53,7 +53,14 @@ const Requests = () => {
             key={_id}
             className="flex items-center gap-6 bg-base-300 p-2 rounded-2xl my-3"
           >
-            <img src={photoURL} alt="photo" className="w-20 h-20 rounded-full object-cover" />
+            <img
+              src={photoURL || DEFAULT_PROFILE_IMAGE}
+              alt="Profile"
+              className="w-20 h-20 rounded-full object-cover"
+              onError={(event) => {
+                event.currentTarget.onerror = null;
+                event.currentTarget.src = DEFAULT_PROFILE_IMAGE;
+              }} />
             <div className="max-w-xl">
               <h2 className="font-bold text-lg">{firstName} {lastName}</h2>
               <p className="text-sm">{age}, {gender}</p>

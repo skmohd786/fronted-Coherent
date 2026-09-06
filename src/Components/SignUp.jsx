@@ -12,23 +12,38 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSignUp = async () => {
+    setError("");
 
+    if (!firstName.trim() || !lastName.trim() || !emailId.trim() || !password) {
+      setError("All fields are required");
+      return;
+    }
+    if (firstName.trim().length < 4) {
+      setError("First name must be at least 4 characters");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailId.trim())) {
+      setError("Enter a valid email address");
+      return;
+    }
+    if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\w\s]).{8,}$/.test(password)) {
+      setError("Password needs 8 characters, uppercase, lowercase, number, and symbol");
+      return;
+    }
+
+    setIsSubmitting(true);
     try {
-      if (!firstName || !lastName || !emailId || !password) {
-        setError("All fields are required");
-        return;
-      }
-
       const res = await axios.post(
         BASE_URL + "/signup",
         {
-          firstName,
-          lastName,
-          emailId,
+          firstName: firstName.trim(),
+          lastName: lastName.trim(),
+          emailId: emailId.trim().toLowerCase(),
           password,
         }, { withCredentials: true }
       );
@@ -36,7 +51,9 @@ const SignUp = () => {
       return navigate("/profile");
 
     } catch (err) {
-      setError(err.response?.data || "Something went wrong");
+      setError(typeof err.response?.data === "string" ? err.response.data : "Unable to create your account");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -97,7 +114,9 @@ const SignUp = () => {
           </div>
           <p className='text-red-500'>{error}</p>
           <div className="card-actions justify-center my-2">
-            <button className="btn btn-primary w-full" onClick={handleSignUp}>Sign Up</button>
+            <button className="btn btn-primary w-full" onClick={handleSignUp} disabled={isSubmitting}>
+              {isSubmitting ? "Creating account..." : "Sign Up"}
+            </button>
           </div>
         </div>
       </div>

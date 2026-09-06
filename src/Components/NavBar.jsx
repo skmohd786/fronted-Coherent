@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { BASE_URL } from '../utils/constants';
+import { BASE_URL, DEFAULT_PROFILE_IMAGE } from '../utils/constants';
 import { Link, useNavigate } from 'react-router-dom';
 import { removeUser } from '../utils/userSlice';
 
@@ -11,7 +11,7 @@ const NavBar = () => {
 
     const handleLogOut = async () => {
         try {
-            const res = await axios.post(BASE_URL + "/logout", {}, {
+            await axios.post(BASE_URL + "/logout", {}, {
                 withCredentials: true
             });
             dispatch(removeUser());
@@ -46,7 +46,11 @@ const NavBar = () => {
                         <div className="w-10 rounded-full">
                             <img
                                 alt="user photo"
-                                src={user.photoURL} />
+                                src={user.photoURL || DEFAULT_PROFILE_IMAGE}
+                                onError={(event) => {
+                                    event.currentTarget.onerror = null;
+                                    event.currentTarget.src = DEFAULT_PROFILE_IMAGE;
+                                }} />
                         </div>
                     </div>
                     <ul
