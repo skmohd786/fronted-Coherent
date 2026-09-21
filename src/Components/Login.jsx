@@ -14,6 +14,12 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const fillDemoAccount = () => {
+    setEmailId("demo.alex@coherent.dev");
+    setPassword("Demo@12345");
+    setError("");
+  };
+
   const handleLogin = async () => {
     setError("");
     if (!emailId.trim() || !password) {
@@ -80,6 +86,9 @@ const Login = () => {
           <div className="card-actions justify-center">
             <button className="btn btn-primary w-full" onClick={handleLogin} disabled={isSubmitting}>
               {isSubmitting ? "Logging in..." : "Login"}
+            </button>
+            <button className="btn btn-outline w-full" onClick={fillDemoAccount} disabled={isSubmitting}>
+              Fill demo account
             </button>
           </div>
           <div className='text-center flex mt-4'>

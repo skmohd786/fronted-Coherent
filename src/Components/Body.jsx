@@ -1,32 +1,22 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "./NavBar";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { addConnections } from "../utils/connectionSlice";
 
 const Body = () => {
   const dispatch = useDispatch();
-  const user = useSelector((store) => store.user);
   const location = useLocation();
   const navigate = useNavigate();
   const isPublicRoute = location.pathname === "/login" || location.pathname === "/signup";
+  const [isAuthChecked, setIsAuthChecked] = useState(isPublicRoute);
 
   useEffect(() => {
-    if (location.pathname === "/") {
-      navigate("/login", { replace: true });
-      return;
-    }
-
     if (isPublicRoute) return;
-
-    if (!user) {
-      navigate("/login", { replace: true });
-      return;
-    }
 
     const fetchUser = async () => {
       try {
@@ -34,11 +24,13 @@ const Body = () => {
           withCredentials: true,
         });
         dispatch(addUser(res.data));
+        setIsAuthChecked(true);
       } catch (err) {
         if (err.response?.status === 401) {
           navigate("/login", { replace: true });
         }
         console.error(err);
+        setIsAuthChecked(true);
       }
     };
 
@@ -55,7 +47,9 @@ const Body = () => {
 
     fetchUser();
     fetchConnections();
-  }, [dispatch, isPublicRoute, location.pathname, navigate, user]);
+  }, [dispatch, isPublicRoute, location.pathname, navigate]);
+
+  if (!isPublicRoute && !isAuthChecked) return null;
 
   return (
     <div>

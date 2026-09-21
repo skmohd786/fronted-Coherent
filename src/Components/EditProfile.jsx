@@ -16,6 +16,33 @@ const EditProfile = ({ user }) => {
     const dispatch = useDispatch();
     const [showToast, setShowToast] = useState(false);
 
+    const handlePhotoChange = (event) => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+            setError("Please choose an image file");
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = () => {
+            const image = new Image();
+            image.onload = () => {
+                const maxSize = 900;
+                const scale = Math.min(1, maxSize / Math.max(image.width, image.height));
+                const canvas = document.createElement("canvas");
+                canvas.width = Math.round(image.width * scale);
+                canvas.height = Math.round(image.height * scale);
+                canvas.getContext("2d").drawImage(image, 0, 0, canvas.width, canvas.height);
+                setPhotoURL(canvas.toDataURL("image/jpeg", 0.82));
+                setError("");
+            };
+            image.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+    };
+
     const update = async () => {
         setError("");
         if (age && Number(age) < 18) {
@@ -72,6 +99,13 @@ const EditProfile = ({ user }) => {
                                     value={photoURL}
                                     onChange={(e) => setPhotoURL(e.target.value)}
                                 />
+                                <label className='font-bold py-2'>Choose Profile Photo</label>
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    className="file-input w-full"
+                                    onChange={handlePhotoChange}
+                                />
                                 <label className='font-bold py-2'>Age</label>
                                 <input
                                     type="text"
@@ -107,11 +141,12 @@ const EditProfile = ({ user }) => {
                 </div>
             </div>
 
-            <div className="card bg-base-300 w-96 shadow-sm mx-10">
-                <figure>
+            <div className="card bg-base-300 w-96 shadow-sm mx-10 overflow-hidden">
+                <figure className="h-80 bg-base-200">
                     <img
                         src={photoURL || DEFAULT_PROFILE_IMAGE}
                         alt="Profile preview"
+                        className="h-full w-full object-cover object-center"
                         onError={(event) => {
                             event.currentTarget.onerror = null;
                             event.currentTarget.src = DEFAULT_PROFILE_IMAGE;

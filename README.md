@@ -4,6 +4,18 @@ A full-stack developer networking platform where developers can discover other d
 
 🌐 **Live Product:** https://coherent.me
 
+## 🧪 Interview Demo Walkthrough
+
+Start the backend with `SEED_DEMO_DATA=true`, open the frontend, and choose
+**Fill demo account** on the login screen.
+
+Use the seeded Alex account to demonstrate:
+
+1. Developer discovery and connection requests on the home feed.
+2. The incoming request under **Requests**.
+3. The accepted connection under **Connections**.
+4. Chat history and real-time messaging with Jordan.
+
 ---
 
 ## 📌 About

@@ -11,6 +11,7 @@ import SignUp from "./Components/SignUp";
 import PasswordChange from "./Components/PasswordChange";
 import Premium from "./Components/Premium";
 import Chat from "./Components/Chat";
+import DeveloperProfile from "./Components/DeveloperProfile";
 
 function App() {
   return (
@@ -18,10 +19,11 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Body />}>
-            <Route index element={<Navigate to="/login" replace />} />
+            <Route index element={<Feed />} />
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<SignUp />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="user/:userId" element={<DeveloperProfile />} />
             <Route path="connections" element={<Connections />} />
             <Route path="requests" element={<Requests />} />
             <Route path="password" element={<PasswordChange />} />
