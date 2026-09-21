@@ -2,7 +2,7 @@
 
 A full-stack developer networking platform where developers can discover other developers, build professional connections, chat in real time, and grow their professional network.
 
-🌐 **Live Product:** https://coherent.me
+🌐 **Live Product:** https://cohorent.me
 
 ## 🧪 Interview Demo Walkthrough
 
