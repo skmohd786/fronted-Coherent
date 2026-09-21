@@ -1,4 +1,4 @@
-# 🔗 Coherent Frontend
+# 🔗 Cohorent Frontend
 
 A full-stack developer networking platform where developers can discover other developers, build professional connections, chat in real time, and grow their professional network.
 
@@ -8,11 +8,11 @@ A full-stack developer networking platform where developers can discover other d
 
 ## 📌 About
 
-**Coherent** is a MERN-based developer networking platform designed to help developers discover other developers, connect with them, and communicate through one focused platform.
+**Cohorent** is a MERN-based developer networking platform designed to help developers discover other developers, connect with them, and communicate through one focused platform.
 
 Users can create developer profiles, discover other developers, send and manage connection requests, chat with their connections in real time, and access premium membership plans.
 
-This repository contains the **React + Vite frontend** of Coherent.
+This repository contains the **React + Vite frontend** of Cohorent.
 
 ---
 

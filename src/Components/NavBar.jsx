@@ -26,8 +26,8 @@ const NavBar = () => {
         <div className="navbar bg-base-300 shadow-sm">
             <div className="flex-1">
                 <Link to={user ? "/" : "/login"} className="btn btn-ghost text-2xl font-bold  rounded-lg">
-                    <img src="/Coherent-logo.png" alt="Coherent logo" className="w-8 h-8" />
-                    Coherent
+                    <img src="/Coherent-logo.png" alt="Cohorent logo" className="w-8 h-8" />
+                    Cohorent
                 </Link>
             </div>
 
